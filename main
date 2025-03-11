@@ -1,0 +1,60 @@
+from tkinter import *
+from tkinter import ttk
+
+okno = Tk()
+okno.title("xex v0.1")
+okno.geometry("1920x1080")
+
+can = Canvas(width=1920, height=1080)
+can.pack()
+
+
+def menu():
+    can.create_rectangle(820, 500, 900, 580, width=4)
+    can.create_rectangle(1020, 500, 1100, 580, width=4)
+    can.create_rectangle(1220, 500, 1300, 580, width=4)
+    can.create_rectangle(1420, 500, 1500, 580, width=4)
+    can.create_rectangle(620, 500, 700, 580, width=4)
+
+    can.create_text(640, 540, text="п.1", anchor="nw")
+    can.create_text(850, 540, text="п.2", anchor="nw")
+    can.create_text(1050, 540, text="п.3", anchor="nw")
+    can.create_text(1250, 540, text="п.4", anchor="nw")
+    can.create_text(1450, 540, text="п.5", anchor="nw")
+    can.create_text(950, 440, text="Меню")
+    okno.bind("<Button-1>", clk)
+
+
+def clk_i(num, x1, x2, y1, y2, x, y):
+    if x1<x<x2 and y1<y<y2:
+        can.delete(ALL)
+        can.create_rectangle(0, 0, 100, 100)
+        can.create_text(30, 30, text="Меню", anchor="nw")
+        can.create_text(960, 540, text=f"вы в пункте {num}", anchor="nw")
+        okno.bind("<Button-1>", menu_clk)
+        okno.bind("<Escape>", menu_clk2)
+
+
+def menu_clk(e):
+    if 0 < e.x < 100 and 0 < e.y < 100:
+        can.delete(ALL)
+        menu()
+
+def menu_clk2(e):
+    can.delete(ALL)
+    menu()
+
+def clk(e):
+    clk_i(1, 640, 700, 500, 580, e.x, e.y)
+    clk_i(2, 820, 900, 500, 580, e.x, e.y)
+    clk_i(3, 1020, 1100, 500, 580, e.x, e.y)
+    clk_i(4, 1220, 900, 500, 580, e.x, e.y)
+    clk_i(5, 1420, 1500, 5500, 580, e.x, e.y)
+
+
+menu()
+
+okno.bind("<Button-1>", clk)
+
+
+okno.mainloop()
